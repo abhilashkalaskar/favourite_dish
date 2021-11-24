@@ -2,7 +2,9 @@ package com.abhilash.favouritedish.model.database
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.Query
 import com.abhilash.favouritedish.model.entities.FavDish
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavDishDao {
@@ -10,4 +12,6 @@ interface FavDishDao {
     @Insert
     suspend fun insertFavouriteDishDetails(favDish: FavDish)
 
+    @Query("SELECT * FROM FAV_DISHES_TABLE ORDER BY ID")
+    fun getAllDishesList(): Flow<List<FavDish>>
 }

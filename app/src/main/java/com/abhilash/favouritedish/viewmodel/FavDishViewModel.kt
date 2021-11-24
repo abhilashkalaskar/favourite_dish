@@ -1,10 +1,9 @@
 package com.abhilash.favouritedish.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.abhilash.favouritedish.model.database.FavDishRepository
 import com.abhilash.favouritedish.model.entities.FavDish
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -13,6 +12,7 @@ class FavDishViewModel (private val repository: FavDishRepository) : ViewModel()
     fun insert(dish: FavDish) = viewModelScope.launch {
         repository.insertFavDishData(dish)
     }
+    val allDishesList: LiveData<List<FavDish>> = repository.allDishesList.asLiveData()
 }
 
 class FavDishViewModelFactory(private val favDishRepository: FavDishRepository) : ViewModelProvider.Factory {
